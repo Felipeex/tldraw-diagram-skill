@@ -120,6 +120,14 @@ Apply style changes to your prefixed shapes only, with one `updateShapes` call.
 - `size:'s'` text is ~22px per line in `draw`/`sans`; multi-line notes next to
   short bands will overlap unless stacked by measured bounds.
 - Shape ids must start with `shape:`; reuse of an existing id throws.
+- Props are validated per type: `text` has no `dash`/`fill`. An invalid prop
+  inside `ed.run` crashes tldraw.com ("Algo deu errado") — reload the page; the
+  change is not saved. Don't spread a shared style object into every type.
+- Geo labels that wrap grow the shape (`growY`); measure with
+  `getShapePageBounds`, not `props.h`.
+- Children of a `frame` use frame-local coordinates after `reparentShapes`.
+- Several arrows between a side group and two funnel bands cross each other;
+  group the side boxes in a `frame` and use one arrow in, one arrow out.
 - `richText` is a TipTap doc, not a string — use `helpers.rt(lines)`.
 - Don't trigger browser dialogs; don't touch menus/sharing; don't navigate away
   from the user's board.
